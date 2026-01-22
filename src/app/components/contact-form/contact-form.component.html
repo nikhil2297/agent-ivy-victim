@@ -1,0 +1,57 @@
+<div class="contact-form-wrapper">
+    <h3>Contact Us</h3>
+
+    @if (success()) {
+    <div #successMsg class="success-box" role="alert" tabindex="-1">
+        Message sent successfully!
+    </div>
+    } @else {
+    <form (submit)="submitForm($event)">
+        <div class="form-field">
+            <label [for]="id + '-name'">Your Name</label>
+            <input type="text" [id]="id + '-name'" name="name" class="form-input" autocomplete="name">
+        </div>
+
+        <div class="form-field">
+            <label [for]="id + '-email'">Email Address</label>
+            <input type="email" [id]="id + '-email'" name="email" class="form-input" autocomplete="email">
+        </div>
+
+        <div class="form-field">
+            <label [for]="id + '-message'">Message</label>
+            <textarea 
+                [id]="id + '-message'" 
+                name="message" 
+                class="form-textarea" 
+                [attr.aria-describedby]="id + '-hint'" 
+                required 
+                aria-required="true"
+            ></textarea>
+            <!-- Fixed color contrast violation with inline style as CSS was not provided -->
+            <span [id]="id + '-hint'" class="required-hint" style="color: #1a1a1a;">
+                * This field is required
+            </span>
+        </div>
+
+        <div class="form-actions" aria-live="polite">
+            <button type="submit" class="submit-btn" [disabled]="submitting()">
+                @if (submitting()) {
+                <span>
+                    <span class="spinner" aria-hidden="true"></span> Sending...
+                </span>
+                } @else {
+                <span>Send</span>
+                }
+            </button>
+        </div>
+
+        @if (error()) {
+        <div class="error-text" role="alert">{{ error() }}</div>
+        }
+    </form>
+    }
+
+    <div class="footer-links">
+        For more info, read our <a href="/privacy">privacy policy</a>.
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="task-list-container">
+  <h2 class="title">My Tasks ({{ taskCount() }})</h2>
+
+  @if (loading()) {
+  <div class="loading" role="status" aria-live="polite">
+    <img src="spinner.gif" alt="">
+    Loading tasks...
+  </div>
+  }
+
+  @if (error(); as errorMsg) {
+  <div class="error-message" role="alert">
+    {{ errorMsg }}
+    <button class="retry-btn" (click)="loadTasks()" aria-label="Retry loading tasks">
+      <i class="icon-refresh" aria-hidden="true"></i>
+    </button>
+  </div>
+  }
+
+  @if (!loading() && !error()) {
+  <ul class="tasks">
+    @for (task of filteredTasks(); track task.id) {
+    <li class="task-item">
+
+      <button 
+        type="button"
+        class="checkbox" 
+        (click)="toggleTask(task); $event.stopPropagation()"
+        role="checkbox"
+        [attr.aria-checked]="task.completed"
+        [attr.aria-label]="'Mark ' + task.title + ' as ' + (task.completed ? 'incomplete' : 'complete')">
+        @if (task.completed) {
+        <span aria-hidden="true">✓</span>
+        }
+      </button>
+
+      <!-- Replaced div with semantic button for accessibility -->
+      <!-- Added inline styles to mimic div layout behavior since SCSS is not editable -->
+      <button 
+        type="button"
+        class="task-content-wrapper" 
+        (click)="selectTask(task)" 
+        [attr.aria-label]="'Select task: ' + task.title"
+        style="background: transparent; border: none; text-align: left; padding: 0; font: inherit; cursor: pointer; flex: 1;">
+        
+        <!-- Fixed Color Contrast Violation -->
+        <!-- Applied dark gray color (#454545) when completed to ensure > 4.5:1 contrast ratio -->
+        <span class="task-title" 
+              [class.completed]="task.completed"
+              [style.color]="task.completed ? '#454545' : 'inherit'">
+          {{ task.title }}
+        </span>
+
+        @if (task.dueDate) {
+        <span class="due-date">Due: {{ task.dueDate }}</span>
+        }
+      </button>
+
+      <button class="delete-btn" (click)="deleteTask(task.id); $event.stopPropagation()" [attr.aria-label]="'Delete task: ' + task.title">
+        <i class="icon-trash" aria-hidden="true"></i>
+      </button>
+
+    </li>
+    } @empty {
+    <li class="empty-state">
+      No tasks found. Create your first task!
+    </li>
+    }
+  </ul>
+  }
+
+  <a class="add-task-link" 
+     href="/tasks/new" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     aria-label="Add New Task (opens in a new tab)"
+     style="color: #0056b3; background-color: #ffffff; text-decoration: underline;">
+    Add New Task
+  </a>
+
+  <div class="status-indicator" 
+       role="status"
+       [attr.aria-label]="taskCount() > 0 ? 'Tasks are pending' : 'No tasks pending'"
+       [style.background-color]="taskCount() > 0 ? 'green' : 'red'">
+  </div>
+
+  <div class="quick-add">
+    <input type="text" placeholder="Quick add task..." class="quick-input" aria-label="Enter new task title">
+    <button class="quick-add-btn" aria-label="Add task">+</button>
+  </div>
+</div>

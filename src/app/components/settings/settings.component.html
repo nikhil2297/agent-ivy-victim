@@ -1,0 +1,72 @@
+<div class="settings-container">
+    <h1 class="header">Application Settings</h1>
+
+    <div class="settings-group">
+        <h2 class="group-title">Preferences</h2>
+
+        <div class="setting-item">
+            <span id="notif-label">Enable Notifications</span>
+            <!-- Changed div to button for keyboard access and semantics -->
+            <button type="button" 
+                    role="switch"
+                    class="toggle" 
+                    [class.active]="notifications()" 
+                    [attr.aria-checked]="notifications()"
+                    aria-labelledby="notif-label"
+                    (click)="toggleNotifications()">
+                <span class="slider"></span>
+            </button>
+        </div>
+
+        <div class="setting-item">
+            <span id="dm-label">Dark Mode</span>
+            <!-- Changed div to button, added aria-label via aria-labelledby -->
+            <button type="button" 
+                    role="switch" 
+                    class="toggle" 
+                    [class.active]="darkMode()" 
+                    [attr.aria-checked]="darkMode()"
+                    aria-labelledby="dm-label"
+                    (click)="toggleDarkMode()">
+                <span class="slider"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="settings-group" role="radiogroup" aria-labelledby="freq-label">
+        <h2 id="freq-label" class="group-title">Email Frequency</h2>
+        <div class="radio-group">
+            <!-- Changed to buttons for keyboard focus, added role="radio" -->
+            <button type="button" 
+                    role="radio"
+                    class="radio-option" 
+                    [attr.aria-checked]="emailFrequency() === 'daily'"
+                    (click)="setFrequency('daily')">
+                <span class="dot" [class.selected]="emailFrequency() === 'daily'"></span>
+                Daily
+            </button>
+            <button type="button" 
+                    role="radio"
+                    class="radio-option" 
+                    [attr.aria-checked]="emailFrequency() === 'weekly'"
+                    (click)="setFrequency('weekly')">
+                <span class="dot" [class.selected]="emailFrequency() === 'weekly'"></span>
+                Weekly
+            </button>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <!-- Changed div to label associated with input -->
+        <label for="api-key-input" class="group-title">Account API Key</label>
+        <input type="text" 
+               id="api-key-input"
+               placeholder="Enter API Key here..." 
+               class="api-input">
+
+        <!-- Added aria-label to button containing only an icon -->
+        <button class="copy-btn" aria-label="Copy API Key">
+            <i class="icon-copy" aria-hidden="true">📋</i>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="performance-container">
+    <section class="stat-box">
+        <h3>Calculation Result:</h3>
+        <!-- Optimization: Bind to pre-calculated property instead of getter -->
+        <p class="calc-result">{{ calculationResult }}</p>
+        <small>Calculation runs once on initialization.</small>
+    </section>
+
+    <section class="visual-stress">
+        <h3>DOM List (Displaying top 50 of {{ items().length }} Items)</h3>
+        <!-- Fix: scrollable-region-focusable violation -->
+        <!-- Added tabindex="0" to make the scrollable area focusable by keyboard -->
+        <!-- Added role="region" and aria-label to identify the region to screen readers -->
+        <div class="heavy-list" tabindex="0" role="region" aria-label="Scrollable list of generated items">
+            <!-- Optimization: Use trackBy -->
+            <!-- Optimization: Use pre-calculated color property -->
+            <!-- Optimization: Render limited subset (displayedItems) instead of full list -->
+            <div *ngFor="let item of displayedItems(); trackBy: trackById" 
+                 class="heavy-item" 
+                 [style.border-color]="item.color">
+                <span class="id">#{{ item.id }}</span>
+                <span class="text">{{ item.text }}</span>
+                <div class="metadata">
+                    <span>Random: {{ item.metadata.random | number:'1.2-2' }}</span>
+                    <span>Nested A: {{ item.metadata.nested.a }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="media-stress">
+        <h3>Optimized Assets</h3>
+        <!-- Optimization: Add loading="lazy" and decoding="async" -->
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+            alt="Space satellite view of earth" 
+            width="200" 
+            height="200"
+            loading="lazy"
+            decoding="async">
+    </section>
+</div>

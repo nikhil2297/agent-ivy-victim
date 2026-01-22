@@ -1,0 +1,52 @@
+<div class="profile-card">
+    <div class="avatar-container">
+        <!-- Fix: Added alt text for screen readers -->
+        <img [src]="user().avatar" [alt]="user().name + '\'s avatar'" class="avatar">
+    </div>
+
+    <div class="user-info">
+        <!-- Fix: Changed div to h2 for semantic document structure -->
+        <h2 class="name">{{ user().name }}</h2>
+
+        <!-- Fix: Added inline style to ensure 4.5:1 contrast ratio (Dark Grey on White) -->
+        <div class="email" style="color: #2c3e50;">{{ user().email }}</div>
+
+        <div class="bio">
+            {{ user().bio }}
+        </div>
+    </div>
+
+    <div class="actions">
+        <!-- Fix: Changed div to button, added template ref for focus management, and high contrast styles -->
+        <button 
+            type="button" 
+            class="edit-btn" 
+            (click)="toggleEdit()"
+            #editBtn
+            style="background-color: #0056b3; color: #ffffff;"
+        >
+            Edit Profile
+        </button>
+        <!-- Fix: Added high contrast color for the link -->
+        <a href="/settings" class="settings-link" style="color: #0056b3;">
+            Settings
+        </a>
+    </div>
+
+    @if (editing()) {
+    <div class="edit-overlay">
+        <!-- Fix: Added dialog role and aria attributes for modal context -->
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-header" id="modal-title">Edit Bio</div>
+            <!-- Fix: Added aria-label and template ref #bioInput for focus management -->
+            <textarea 
+                class="bio-input" 
+                aria-label="Bio content"
+                #bioInput
+            >{{ user().bio }}</textarea>
+            <!-- Fix: Changed div to button and added aria-label for non-text content -->
+            <button type="button" class="close-x" (click)="toggleEdit()" aria-label="Close modal">X</button>
+        </div>
+    </div>
+    }
+</div>
