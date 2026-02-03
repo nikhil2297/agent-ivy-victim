@@ -1,0 +1,56 @@
+<div class="container">
+    <h4>Welcome to the Inaccessible Page</h4>
+
+    <img src="assets/banner.jpg" />
+
+    <p class="bad-contrast-text">
+        This text is very hard to read because of the low contrast between the grey text and white background.
+        Also, the font size is fixed to pixels and is very small.
+    </p>
+    <div class="content-block">
+        <div>Some random content here</div>
+        <br><br>
+
+        <div>
+            System Status: <div class="status-indicator active"></div> (Green means good, Red means bad - hope you are
+            not colorblind!)
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="bad-form">
+        <input type="text" class="sneaky-input" placeholder="Username" [(ngModel)]="formData.username">
+        <br><br>
+
+        <input type="password" class="sneaky-input" placeholder="Password" [(ngModel)]="formData.password">
+        <br><br>
+
+        <textarea placeholder="Tell us more..." [(ngModel)]="formData.comments"></textarea>
+        <br><br>
+        <div class="fake-button" (click)="fakeSubmit()" tabindex="5">
+            Submit Form
+        </div>
+    </div>
+
+    <br><br>
+
+    <a href="#" (click)="$event.preventDefault()">Click here</a> to read more.
+
+    <br><br>
+    <div (mouseover)="doExampleAction()" style="border: 1px solid black; padding: 10px;">
+        Hover over me to do something (Keyboard users can't trigger this!)
+    </div>
+
+    <table role="presentation">
+        <tr>
+            <td>Layout</td>
+            <td>Table</td>
+        </tr>
+        <tr>
+            <td>Is</td>
+            <td>Bad</td>
+        </tr>
+    </table>
+
+</div>

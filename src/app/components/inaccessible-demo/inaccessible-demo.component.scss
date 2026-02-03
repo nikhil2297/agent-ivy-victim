@@ -1,0 +1,49 @@
+.container {
+    padding: 20px;
+    font-family: 'Times New Roman', serif; // Hard to read font for UI
+}
+
+.bad-contrast-text {
+    color: #ccc;
+    background-color: #fff;
+    font-size: 10px; // Too small
+}
+
+.status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    &.active {
+        background-color: #00ff00; // Bright green
+    }
+
+    &.inactive {
+        background-color: #ff0000; // Bright red
+    }
+}
+
+*:focus {
+    outline: none !important;
+}
+
+.fake-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    display: inline-block;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.sneaky-input {
+    border: none;
+    border-bottom: 1px solid #eee; // Very faint border
+    padding: 5px;
+}
+
+p {
+    text-align: justify;
+}
